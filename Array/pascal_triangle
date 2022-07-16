@@ -1,0 +1,12 @@
+vector<vector<int>> fun(int n){
+
+// create n dynamic arr
+    vector<vector<int>> r(n);
+    for(int i=0;i<n;i++){
+        r[i].resize(i+1);       /// resize them according to row number//
+        r[i][0] = r[i][i] = 1;      // set 1 and last number to 1
+        for(int j=1;j<i;j++)             // run a loop that calulates the current element by adding prev elements 
+          r[i][j] = r[i-1][j-1] + r[i-1][j];
+    }
+    return r;
+} 
