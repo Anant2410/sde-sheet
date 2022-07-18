@@ -1,0 +1,14 @@
+vector<vector<int>> fun(vector<vector<int>>& arr){
+    vector<int> temp;
+    vector<vector<int>> ans;
+    temp = arr[0];
+    for(auto it: arr){
+        if(it[0]<= temp[1]) temp[1] = max(it[1], temp[1]);
+        else{
+            ans.push_back(temp);
+            temp = it;
+        }
+    }
+    ans.push_back(temp);
+    return ans;
+}
