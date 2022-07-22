@@ -1,0 +1,33 @@
+program is same as count inversion problem just update the count by mid-i + 1;
+
+tc = o(log n) sc = o(1);
+
+
+
+int merge(vector<int>& nums, int l, int m , int h){
+        int count = 0;
+        int i = l, j = m+1;
+        while(i<=m && j<=h){
+            long long temp = nums[j];
+            if(nums[i] > 2 * temp){
+                count += m-i+1;
+                j++;
+            }
+            else i++;
+        }
+        sort(nums.begin()+l, nums.begin()+h+1);
+        return count;
+    }
+    int ms(vector<int>& nums , int l , int h){
+        if(l>=h) return 0;
+        int m = (l+h) /2;
+       int count = ms(nums,l,m);
+       count += ms(nums,m+1,h);
+        count += merge(nums,l,m,h);
+        return count;
+    }
+    int reversePairs(vector<int>& nums) {
+        if(nums.size() == 1) return 0;
+        
+        return ms(nums,0,nums.size()-1);
+    }
