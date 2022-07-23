@@ -1,0 +1,40 @@
+just run two loops and apply binary search with the following condition 
+
+
+vector<vector<int>> ans;
+        int n = nums.size();
+        if(n==0) return ans;
+        
+        sort(nums.begin(), nums.end());
+        
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                long long tar2 = (long long)target - nums[j] - nums[i];
+                int low = j+1;
+                int high = n-1;
+                
+                while(low < high){
+                    long long tar3 = nums[low] + nums[high];
+                    
+                    if(tar3 < tar2) low++;
+                    
+                    else if(tar3 > tar2) high--;
+                    
+                    else{
+                        vector<int> q(4,0);
+                        q[0] = nums[i];
+                        q[1] = nums[j];
+                        q[2] = nums[low];
+                        q[3] = nums[high];
+                        ans.push_back(q);
+                        
+                        while(low<high && q[2] == nums[low]) ++low;
+                        while(low<high && q[3] == nums[high]) --high;
+                    }
+                }
+                while(j + 1 < n && nums[j + 1] == nums[j]) ++j;
+            }
+            while(i + 1 < n && nums[i+1] == nums[i]) ++i;
+        }
+        return ans;
+    }
